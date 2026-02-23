@@ -1,4 +1,4 @@
-package org.example.controller;
+package org.example.users.api;
 
 import org.example.dto.UserDto;
 import org.springframework.web.bind.annotation.GetMapping;

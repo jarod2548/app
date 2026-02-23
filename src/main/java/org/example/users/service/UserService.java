@@ -1,4 +1,4 @@
-package org.example.service;
+package org.example.users.service;
 
 import org.example.dto.UserDto;
 import org.springframework.stereotype.Service;
