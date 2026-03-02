@@ -1,17 +1,13 @@
 package org.example.transaction.repository;
 
-import org.example.transaction.DTO.TransactieDTO;
+import org.example.transaction.DBO.TransactieDBO;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class TransactieRepository
+@Repository
+public interface TransactieRepository extends JpaRepository<TransactieDBO, Long>
 {
-    public List<TransactieDTO> leesTransacties()
-    {
-        List<TransactieDTO> transacties = new ArrayList<>();
 
-        return transacties;
-    }
 
 }

@@ -1,0 +1,7 @@
+CREATE TABLE Transacties (
+    ID BIGSERIAL PRIMARY KEY ,
+    Aantal DECIMAL(15,2) NOT NULL,
+    CreatieDatum TIMESTAMPTZ NOT NULL,
+    Beschrijving NVARCHAR(255) NULL,
+
+)
