@@ -1,7 +1,7 @@
-package org.example.users.api;
+package org.users.api;
 
 
-import org.example.users.service.UserService;
+import org.users.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

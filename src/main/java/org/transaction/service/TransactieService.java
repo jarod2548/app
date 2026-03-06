@@ -1,31 +1,25 @@
-package org.example.transaction.service;
+package org.transaction.service;
 
 
-import org.example.transaction.DBO.TransactieDBO;
-import org.example.transaction.domain.Transactie;
-import org.example.transaction.repository.TransactieRepository;
+import org.transaction.repository.TransactieDBO;
+import org.transaction.domain.Transactie;
+import org.transaction.repository.TransactieRepository;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import javax.xml.validation.Validator;
 import java.util.ArrayList;
 import java.util.List;
 @Service
 public class TransactieService {
 
     private  final TransactieRepository repository;
+    private final Validator validator;
 
-    public TransactieService(TransactieRepository Repository){
+    public TransactieService(TransactieRepository Repository, Validator Validator){
+        validator = Validator;
         repository = Repository;
     }
 
-    public List<Transactie>LeesTransacties2()
-    {
-        LocalDateTime dateTime = LocalDateTime.of(2023, 10, 1, 10, 0);
-        List<Transactie> transacties = new ArrayList<>();
-        transacties.add(new Transactie(new BigDecimal(21), "",dateTime ));
-        return transacties;
-    }
     public boolean slaTransactieOp()
     {
         boolean succes = false;

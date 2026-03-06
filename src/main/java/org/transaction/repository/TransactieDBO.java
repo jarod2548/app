@@ -1,4 +1,4 @@
-package org.example.transaction.DBO;
+package org.transaction.repository;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

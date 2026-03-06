@@ -1,6 +1,5 @@
-package org.example.transaction.repository;
+package org.transaction.repository;
 
-import org.example.transaction.DBO.TransactieDBO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

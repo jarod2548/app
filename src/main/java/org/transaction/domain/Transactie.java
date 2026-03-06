@@ -1,6 +1,7 @@
-package org.example.transaction.domain;
+package org.transaction.domain;
 
-import org.example.transaction.DBO.TransactieDBO;
+import org.transaction.api.TransactieDTO;
+import org.transaction.repository.TransactieDBO;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -11,7 +12,7 @@ public class Transactie {
     private String beschrijving;
     private LocalDateTime datum;
 
-    public Transactie(BigDecimal aantal, String beschrijving, LocalDateTime datum) {
+    public Transactie(TransactieDTO dto) {
         this.aantal = aantal;
         this.beschrijving = beschrijving;
         this.datum = datum;

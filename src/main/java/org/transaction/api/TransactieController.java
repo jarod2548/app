@@ -1,9 +1,7 @@
-package org.example.transaction.api;
+package org.transaction.api;
 
-
-import org.example.transaction.domain.Transactie;
-import org.example.transaction.service.TransactieService;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.transaction.domain.Transactie;
+import org.transaction.service.TransactieService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

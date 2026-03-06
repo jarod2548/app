@@ -1,6 +1,6 @@
-package org.example.users.service;
+package org.users.service;
 
-import org.example.users.api.UserDto;
+import org.users.api.UserDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
