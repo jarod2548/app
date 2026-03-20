@@ -23,11 +23,12 @@ public class TransactieDBO
 
     protected  TransactieDBO(){}
 
-    public TransactieDBO(long ID, String Beschrijving, LocalDateTime CreatieDatum)
+    public TransactieDBO(long ID, String Beschrijving, LocalDateTime CreatieDatum, BigDecimal Aantal)
     {
         id = ID;
         beschrijving = Beschrijving;
         creatieDatum = CreatieDatum;
+        aantal = Aantal;
     }
 
     public Long getId() {return  id;}

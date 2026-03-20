@@ -1,34 +1,34 @@
 package org.transaction.service;
 
-
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.transaction.annotation.Transactional;
 import org.transaction.repository.TransactieDBO;
 import org.transaction.domain.Transactie;
 import org.transaction.repository.TransactieRepository;
 import org.springframework.stereotype.Service;
 
-import javax.xml.validation.Validator;
+
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class TransactieService {
 
     private  final TransactieRepository repository;
-    private final Validator validator;
 
-    public TransactieService(TransactieRepository Repository, Validator Validator){
-        validator = Validator;
+    public TransactieService(TransactieRepository Repository){
         repository = Repository;
     }
 
-    public boolean slaTransactieOp()
+    @Transactional
+    public Transactie slaTransactieOp(Transactie model)
     {
-        boolean succes = false;
-
-        return succes;
-
+            TransactieDBO dbo = model.naarDBO();
+            TransactieDBO saved = repository.save(dbo);
+            return new Transactie(saved);
     }
 
-    public List<Transactie>LeesTransacties()
+    public List<Transactie> LeesTransacties()
     {
         List<TransactieDBO> dboList = repository.findAll();
         List<Transactie> transacties = new ArrayList<>();
@@ -38,4 +38,6 @@ public class TransactieService {
         }
         return transacties;
     }
+
+
 }

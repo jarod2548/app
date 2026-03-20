@@ -36,6 +36,8 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+          cache : 'maven'
+
 
       - name: Build Maven package
         run: mvn clean verify

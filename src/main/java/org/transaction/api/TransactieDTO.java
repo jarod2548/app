@@ -1,5 +1,6 @@
 package org.transaction.api;
 
+import jakarta.validation.constraints.NotNull;
 import org.transaction.domain.Transactie;
 
 import java.math.BigDecimal;
@@ -7,17 +8,14 @@ import java.time.LocalDateTime;
 
 public class TransactieDTO {
     private Long id;
+    @NotNull
     private BigDecimal aantal;
     private String beschrijving;
+    @NotNull
     private LocalDateTime datum;
 
     public TransactieDTO(){}
 
-    public TransactieDTO(BigDecimal aantal, String beschrijving, LocalDateTime datum) {
-        this.aantal = aantal;
-        this.beschrijving = beschrijving;
-        this.datum = datum;
-    }
 
     public TransactieDTO(Transactie transactie)
     {
@@ -32,17 +30,5 @@ public class TransactieDTO {
     public String getBeschrijving() { return beschrijving; }
     public LocalDateTime getDatum() { return datum; }
 
-    public void setId(Long ID) {id = ID;}
 
-    public void setAantal(BigDecimal aantal) {
-        this.aantal = aantal;
-    }
-
-    public void setBeschrijving(String beschrijving) {
-        this.beschrijving = beschrijving;
-    }
-
-    public void setDatum(LocalDateTime datum) {
-        this.datum = datum;
-    }
 }

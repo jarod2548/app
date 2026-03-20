@@ -13,7 +13,7 @@ services:
       POSTGRES_PASSWORD: Konijnenberg
       POSTGRES_DB: financialapp
     volumes:
-      - pgdata:/var/lib/postgresql/pgdata
+      - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
