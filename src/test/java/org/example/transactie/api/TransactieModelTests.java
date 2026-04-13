@@ -4,9 +4,9 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.Test;
-import org.transaction.api.TransactieCreateDTO;
-import org.transaction.api.TransactieDTO;
-import org.transaction.domain.Transactie;
+import org.app.transaction.api.TransactieCreateDTO;
+import org.app.transaction.api.TransactieDTO;
+import org.app.transaction.domain.Transactie;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

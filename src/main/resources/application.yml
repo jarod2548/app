@@ -5,12 +5,13 @@ spring:
     password: Konijnenberg
     driver-class-name: org.postgresql.Driver
   flyway:
+    baseline-on-migrate: true
     enabled: true
     locations: classpath:db/migration
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
   web:
     cors:
@@ -19,6 +20,8 @@ spring:
   threads:
     virtual:
       enabled: true
+  jwt:
+    secret: "QmFlbGR1bmcxMjM0NTY3ODkwMTIzNDU2Nzg5MA=="
 
 logging:
   level:
