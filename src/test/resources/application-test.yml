@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+
+jwt:
+  secret: a7c9e3f1b4d6a8c2e5f7b9d1c3a6e8f0b2d4c7a9e1f3b5d6c8a2e4f7b9c1d3e5

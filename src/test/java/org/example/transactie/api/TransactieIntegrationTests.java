@@ -19,6 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class TransactieIntegrationTests {
 
         String json = """
         {
-                      "aantal": 100,
+                      "aantal": 100.00,
                       "beschrijving": "test",
                       "datum": "2026-04-12T10:00:00"
                     }
@@ -81,7 +82,7 @@ public class TransactieIntegrationTests {
 
         TransactieDBO t = transactieDBOS.stream().findFirst().orElseThrow();
 
-        assertThat(t.getAantal()).isEqualTo(100);
+        assertThat(t.getAantal()).isEqualTo(new BigDecimal("100.00"));
         assertThat(t.getBeschrijving()).isEqualTo("test");
         assertThat(t.getCreatieDatum()).isEqualTo(LocalDateTime.of(2026, 4, 12, 10, 0));
         assertThat(t.getUser().getId()).isEqualTo(savedUser.getId());
