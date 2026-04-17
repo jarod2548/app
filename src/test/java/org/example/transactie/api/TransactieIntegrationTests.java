@@ -64,7 +64,7 @@ public class TransactieIntegrationTests {
 
         String json = """
         {
-                      "aantal": 100,
+                      "aantal": 100.00,
                       "beschrijving": "test",
                       "datum": "2026-04-12T10:00:00"
                     }
