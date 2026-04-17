@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://db:5432/financialapp
-    username: Jarod
-    password: Konijnenberg
+    url: jdbc:postgresql://db:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
   flyway:
     baseline-on-migrate: true
@@ -21,7 +21,7 @@ spring:
     virtual:
       enabled: true
   jwt:
-    secret: "QmFlbGR1bmcxMjM0NTY3ODkwMTIzNDU2Nzg5MA=="
+    secret: ${JWT_SECRET}}
 
 logging:
   level:
