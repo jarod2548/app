@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Component
 public class JWTService {
-    @Value("${JWT_SECRET}")
+    @Value("${jwt.secret}")
     private String jwtSecret;
 
     long expiration = 3600000;
