@@ -40,6 +40,8 @@ jobs:
 
 
       - name: Build Maven package
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
         run: mvn clean verify
 
 
