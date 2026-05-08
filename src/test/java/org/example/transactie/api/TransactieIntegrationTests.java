@@ -1,12 +1,14 @@
 package org.example.transactie.api;
 
-import jakarta.transaction.Transactional;
 
+import org.app.Account.infrastructure.UserDBO;
+import org.app.Account.infrastructure.UserRepository;
 import org.app.Main;
 import org.app.config.UserPrincipal;
 
 import org.app.transaction.repository.TransactieDBO;
 import org.app.transaction.repository.TransactieRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,21 +34,33 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 public class TransactieIntegrationTests {
 
+    private UUID userID;
+
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private TransactieRepository transactieRepository;
 
+    @BeforeEach
+    void Setup()
+    {
+        transactieRepository.deleteAll();
+        userRepository.deleteAll();
+        UserDBO dbo = new UserDBO("naam", "wachtwoord", "USER", "Email");
+        UserDBO saved = userRepository.save(dbo);
+        userID = saved.getId();
+    }
+
     @Test
-    @Transactional
     void shouldCreateTransactie() throws Exception {
 
-        UUID fakeID = UUID.fromString("c3f1c2b6-7a2e-4c9d-9c3b-8d6f2a1e5b4c");
 
         UserPrincipal principal = new UserPrincipal(
-                fakeID,
+                userID,
                 "naam",
                 "USER"
         );
@@ -81,7 +95,7 @@ public class TransactieIntegrationTests {
         assertThat(t.getAantal()).isEqualTo(new BigDecimal("100.00"));
         assertThat(t.getBeschrijving()).isEqualTo("test");
         assertThat(t.getCreatieDatum()).isEqualTo(LocalDateTime.of(2026, 4, 12, 10, 0));
-        assertThat(t.getUser().getId()).isEqualTo(fakeID);
+        assertThat(t.getUser().getId()).isEqualTo(userID);
     }
 }
 
