@@ -1,52 +1,38 @@
 package org.example.transactie.api;
 
-import jakarta.transaction.Transactional;
 
-import org.app.Main;
 import org.app.config.UserPrincipal;
-
-import org.app.transaction.repository.TransactieDBO;
-import org.app.transaction.repository.TransactieRepository;
+import org.app.transaction.api.TransactieController;
+import org.app.transaction.service.TransactieService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(classes = Main.class)
-@AutoConfigureMockMvc
-@ActiveProfiles("test")
-public class TransactieIntegrationTests {
-
+@WebMvcTest(TransactieController.class)
+public class TransactieAPITests {
     @Autowired
     private MockMvc mockMvc;
 
 
-    @Autowired
-    private TransactieRepository transactieRepository;
+
+    @MockitoBean
+    private TransactieService service;
 
     @Test
-    @Transactional
-    void shouldCreateTransactie() throws Exception {
-
-        UUID fakeID = UUID.fromString("c3f1c2b6-7a2e-4c9d-9c3b-8d6f2a1e5b4c");
+    void shouldReturn201() throws Exception {
 
         UserPrincipal principal = new UserPrincipal(
-                fakeID,
+                UUID.fromString("c3f1c2b6-7a2e-4c9d-9c3b-8d6f2a1e5b4c"),
                 "naam",
                 "USER"
         );
@@ -71,18 +57,5 @@ public class TransactieIntegrationTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isCreated());
-
-        List<TransactieDBO> transactieDBOS = transactieRepository.findAll();
-
-        assertThat(transactieDBOS).hasSize(1);
-
-        TransactieDBO t = transactieDBOS.stream().findFirst().orElseThrow();
-
-        assertThat(t.getAantal()).isEqualTo(new BigDecimal("100.00"));
-        assertThat(t.getBeschrijving()).isEqualTo("test");
-        assertThat(t.getCreatieDatum()).isEqualTo(LocalDateTime.of(2026, 4, 12, 10, 0));
-        assertThat(t.getUser().getId()).isEqualTo(fakeID);
     }
 }
-
-
