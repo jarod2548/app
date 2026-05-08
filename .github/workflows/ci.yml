@@ -52,4 +52,4 @@ jobs:
           format: openapi
           target: 'http://localhost:8080/v3/api-docs'
           rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a
+          cmd_options: '-a'
