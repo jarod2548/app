@@ -10,14 +10,16 @@ import java.util.UUID;
 public class Budget {
     private UUID id;
     private BigDecimal aantal;
+    private String naam;
     private LocalDateTime beginDatum;
     private LocalDateTime eindDatum;
 
-    public Budget(BigDecimal Aantal, LocalDateTime BeginDatum, LocalDateTime EindDatum)
+    public Budget(BigDecimal Aantal, String Naam,LocalDateTime BeginDatum, LocalDateTime EindDatum)
     {
         aantal = Aantal;
         beginDatum = BeginDatum;
         eindDatum = EindDatum;
+        naam = Naam;
     }
 
     public BudgetDBO naarDBO(UserDBO userDBO){
@@ -46,5 +48,9 @@ public class Budget {
 
     public LocalDateTime getEindDatum() {
         return eindDatum;
+    }
+
+    public String getNaam() {
+        return naam;
     }
 }

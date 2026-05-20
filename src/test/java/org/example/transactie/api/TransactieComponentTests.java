@@ -3,7 +3,6 @@ package org.example.transactie.api;
 
 import org.app.Account.infrastructure.UserDBO;
 import org.app.Account.infrastructure.UserRepository;
-import org.app.Main;
 import org.app.config.UserPrincipal;
 
 import org.app.transaction.repository.TransactieDBO;
@@ -32,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = org.app.Main.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class TransactieIntegrationTests {
+public class TransactieComponentTests {
 
     private UUID userID;
 

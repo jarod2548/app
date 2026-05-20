@@ -23,6 +23,7 @@ CREATE TABLE Transacties (
 CREATE TABLE Budget (
                         ID UUID PRIMARY KEY ,
                         Aantal DECIMAL(15,2) NOT NULL ,
+                        Naam VARCHAR(50) NOT NULL,
                         BeginDatum DATE NULL ,
                         EindDatum Date Null ,
                         User_id UUID NOT NULL ,

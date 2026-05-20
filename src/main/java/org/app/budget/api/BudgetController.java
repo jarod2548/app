@@ -20,7 +20,7 @@ public class BudgetController {
         service = Service;
     }
 
-    @PostMapping("/user/maakBudget")
+    @PostMapping("/user/budget")
     public ResponseEntity<BudgetDTO> maakBudget(@Valid
                                                 @RequestBody
                                                 BudgetCreateDTO dto,

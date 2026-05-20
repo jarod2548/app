@@ -17,10 +17,10 @@ public class CategorieController {
     }
 
     @PostMapping("/user/maakCategorie")
-    public CategorieDTO maakCategorie(CategorieCreateDTO dto,
-                                      @AuthenticationPrincipal UserPrincipal user) {
+    public CategorieResponseDTO maakCategorie(CategorieCreateDTO dto,
+                                              @AuthenticationPrincipal UserPrincipal user) {
         Categorie model = dto.naarModel();
         Categorie responseModel = service.maakCategorie(model, user.getId());
-        return new CategorieDTO(responseModel);
+        return new CategorieResponseDTO(responseModel);
     }
 }

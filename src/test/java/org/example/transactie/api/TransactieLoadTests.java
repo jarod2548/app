@@ -1,46 +1,68 @@
 package org.example.transactie.api;
 
-import io.gatling.javaapi.core.FeederBuilder;
 import io.gatling.javaapi.core.ScenarioBuilder;
 import io.gatling.javaapi.core.Simulation;
+import io.gatling.javaapi.http.HttpDsl;
 import io.gatling.javaapi.http.HttpProtocolBuilder;
-import org.springframework.test.context.ActiveProfiles;
-
 
 import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.http;
 
-@ActiveProfiles("it")
+
 public class TransactieLoadTests extends Simulation {
 
 
 
-
-    FeederBuilder<String> userFeeder = csv("data/users.csv").circular();
-
     HttpProtocolBuilder httpProtocol =
             http.baseUrl("http://localhost:8080")
-                    .acceptHeader("application/json")
-                    .userAgentHeader(
-                            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) " +
-                                    "AppleWebKit/537.36 (KHTML, like Gecko) " +
-                                    "Chrome/134.0.0.0 Safari/537.36");
+                    .contentTypeHeader("application/json")
+                    .acceptHeader("application/json");
+
+    String payload = """
+        {
+          "amount": 100,
+          "description": "gatling test"
+        }
+        """;
 
     ScenarioBuilder scn =
-            scenario("Transactie ophalen").pause(10)
-                    .feed(userFeeder)
-                    .exec(http("Login")
-                            .post("/api/auth/login")
-                            .body(StringBody("{ \"username\": \"#{username}\", \"password\": \"password\" }")).asJson()
-                            .check(jsonPath("$.token").saveAs("jwt")))
+            scenario("Transactie Load Test")
+                    .exec(
+                            http("Login")
+                                    .post("/login")
+                                    .asJson()
+                                    .body(StringBody("""
+                {
+                  "username": "user1",
+                  "wachtwoord": "password"
+                }
+                """))
+                                    .check(HttpDsl.status().is(200))
+                    )
 
-                    .pause(1)
-
-                    .exec(http("Transactie ophalen")
-                            .get("/user/transactie")
-                            .header("Authorization", "Bearer #{jwt}"));
+                    // TEST BUSINESS ENDPOINT MANY TIMES
+                    .repeat(100).on(
+                            exec(
+                                    http("Create Transactie")
+                                            .post("/user/transactie")
+                                            .asJson()
+                                            .body(StringBody(session -> """
+                    {
+                      "aantal": 100,
+                      "beschrijving": "gatling test",
+                      "datum": "%s"
+                    }
+                    """.formatted(java.time.LocalDateTime.now())))
+                                            .check(HttpDsl.status().is(201))
+                            )
+                    );
 
     {
-        setUp(scn.injectOpen(constantUsersPerSec(2).during(60))).protocols(httpProtocol);
+        setUp(
+                scn.injectOpen(
+                        rampUsers(20).during(10),
+                        constantUsersPerSec(10).during(30)
+                )
+        ).protocols(httpProtocol);
     }
 }

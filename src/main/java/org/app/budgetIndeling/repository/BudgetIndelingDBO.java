@@ -19,8 +19,6 @@ public class BudgetIndelingDBO {
     @Column(name = "Aantal")
     private BigDecimal aantal;
 
-    @Column(name = "Percentage")
-    private float percentage;
 
     @ManyToOne
     @JoinColumn(name = "budget_id", nullable = false)
@@ -32,9 +30,10 @@ public class BudgetIndelingDBO {
 
     public BudgetIndelingDBO() {}
 
-    public BudgetIndelingDBO(BigDecimal aantal, float percentage) {
+    public BudgetIndelingDBO(BigDecimal aantal, BudgetDBO Budget, CategorieDBO Categorie) {
         this.aantal = aantal;
-        this.percentage = percentage;
+        this.budget = Budget;
+        this.categorie = Categorie;
     }
 
     public UUID getId() {
@@ -45,15 +44,23 @@ public class BudgetIndelingDBO {
         return aantal;
     }
 
-    public float getPercentage() {
-        return percentage;
-    }
-
     public void setAantal(BigDecimal aantal) {
         this.aantal = aantal;
     }
 
-    public void setPercentage(float percentage) {
-        this.percentage = percentage;
+    public BudgetDBO getBudget() {
+        return budget;
+    }
+
+    public CategorieDBO getCategorie() {
+        return categorie;
+    }
+
+    public void setBudget(BudgetDBO budget) {
+        this.budget = budget;
+    }
+
+    public void setCategorie(CategorieDBO categorie) {
+        this.categorie = categorie;
     }
 }

@@ -4,13 +4,13 @@ import org.app.categorie.domain.Categorie;
 
 import java.util.UUID;
 
-public class CategorieDTO {
+public class CategorieResponseDTO {
 
     private UUID id;
     private boolean isBelangrijk;
     private String naam;
 
-    public CategorieDTO(Categorie model) {
+    public CategorieResponseDTO(Categorie model) {
         this.id = model.getId();
         this.isBelangrijk = model.isBelangrijk();
         this.naam = model.getNaam();
