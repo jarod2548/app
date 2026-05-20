@@ -3,7 +3,10 @@ package org.app.budgetIndeling.api;
 
 import org.app.budgetIndeling.domain.BudgetIndeling;
 import org.app.budgetIndeling.service.BudgetIndelingService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+
+import java.util.List;
 
 @Controller
 public class BudgetIndelingController {
@@ -14,9 +17,13 @@ public class BudgetIndelingController {
         this.service = service;
     }
 
-    public BudgetIndelingDTO maakBudgetIndeling(BudgetIndelingCreateDTO dto) {
+    public BudgetIndelingResponseDTO maakBudgetIndeling(BudgetIndelingCreateDTO dto) {
         BudgetIndeling model = dto.naarModel();
         BudgetIndeling responseModel = service.maakBudgetIndeling(model);
-        return new BudgetIndelingDTO(responseModel);
+        return new BudgetIndelingResponseDTO(responseModel);
     }
+
+    //public ResponseEntity<List<BudgetIndelingResponseDTO>> leesBudgetIndeling(){
+
+    //}
 }

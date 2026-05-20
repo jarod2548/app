@@ -1,6 +1,7 @@
 package org.app.config;
 
 import org.app.config.Exceptions.InvalidCredentialsException;
+import org.app.config.Exceptions.NotFoundException;
 import org.app.config.Exceptions.UserAlreadyExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body("Database constraint error");
     }
+
+    //Wanneer een object niet wordt gevonden in de database
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<String> handleMissingDBO(NotFoundException e){
+        logger.error("Not found error", e);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
     //Bij foute authorizate
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<String> handleAuthorize(InvalidCredentialsException e){

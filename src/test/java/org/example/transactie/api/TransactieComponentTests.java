@@ -1,14 +1,13 @@
 package org.example.transactie.api;
 
-import jakarta.transaction.Transactional;
-import org.app.Account.domain.User;
+
 import org.app.Account.infrastructure.UserDBO;
 import org.app.Account.infrastructure.UserRepository;
-import org.app.Main;
 import org.app.config.UserPrincipal;
 
 import org.app.transaction.repository.TransactieDBO;
 import org.app.transaction.repository.TransactieRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,16 +21,19 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(classes = Main.class)
+@SpringBootTest(classes = org.app.Main.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class TransactieIntegrationTests {
+public class TransactieComponentTests {
+
+    private UUID userID;
 
     @Autowired
     private MockMvc mockMvc;
@@ -42,17 +44,24 @@ public class TransactieIntegrationTests {
     @Autowired
     private TransactieRepository transactieRepository;
 
+    @BeforeEach
+    void Setup()
+    {
+        transactieRepository.deleteAll();
+        userRepository.deleteAll();
+        UserDBO dbo = new UserDBO("naam", "wachtwoord", "USER", "Email");
+        UserDBO saved = userRepository.save(dbo);
+        userID = saved.getId();
+    }
+
     @Test
-    @Transactional
     void shouldCreateTransactie() throws Exception {
 
-        User user = new User("testuser", "wachtwoord", "USER", "email@gmail.com");
-        UserDBO userDBO = user.naarDBO();
-        UserDBO savedUser = userRepository.save(userDBO);
+
         UserPrincipal principal = new UserPrincipal(
-                savedUser.getId(),
-                savedUser.getUsername(),
-                savedUser.getRole()
+                userID,
+                "naam",
+                "USER"
         );
 
         UsernamePasswordAuthenticationToken auth =
@@ -85,7 +94,7 @@ public class TransactieIntegrationTests {
         assertThat(t.getAantal()).isEqualTo(new BigDecimal("100.00"));
         assertThat(t.getBeschrijving()).isEqualTo("test");
         assertThat(t.getCreatieDatum()).isEqualTo(LocalDateTime.of(2026, 4, 12, 10, 0));
-        assertThat(t.getUser().getId()).isEqualTo(savedUser.getId());
+        assertThat(t.getUser().getId()).isEqualTo(userID);
     }
 }
 

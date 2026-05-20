@@ -11,10 +11,10 @@ import org.app.Account.service.RegisterService;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class RegisterController {
+public class RegistreerController {
     private final RegisterService userCreationService;
 
-    public RegisterController(RegisterService userCreationService) {
+    public RegistreerController(RegisterService userCreationService) {
         this.userCreationService = userCreationService;
     }
 

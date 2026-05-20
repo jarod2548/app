@@ -5,6 +5,7 @@ import org.app.Account.infrastructure.UserRepository;
 import org.app.categorie.domain.Categorie;
 import org.app.categorie.repository.CategorieDBO;
 import org.app.categorie.repository.CategorieRepository;
+import org.app.config.Exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -26,5 +27,9 @@ public class CategorieService {
         CategorieDBO dbo = model.naarDBO(userDBO);
         CategorieDBO saved = repository.save(dbo);
         return new Categorie(saved);
+    }
+
+    public CategorieDBO leesCategorieDBO(UUID categorieID){
+        return  repository.findById(categorieID).orElseThrow(() -> new NotFoundException("Categorie bestaat niet"));
     }
 }

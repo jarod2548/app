@@ -17,6 +17,7 @@ public class BudgetDTO {
         aantal = model.getAantal();
         beginDatum = model.getBeginDatum();
         eindDatum = model.getEindDatum();
+        naam = model.getNaam();
     }
 
     public BigDecimal getAantal() {

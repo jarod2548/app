@@ -60,4 +60,20 @@ public class BudgetDBO {
     public BigDecimal getAantal() {
         return aantal;
     }
+
+    public UserDBO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDBO user) {
+        this.user = user;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public UUID getId() {
+        return id;
+    }
 }

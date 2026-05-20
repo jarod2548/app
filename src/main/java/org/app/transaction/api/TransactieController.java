@@ -1,5 +1,10 @@
 package org.app.transaction.api;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.app.config.UserPrincipal;
 import org.springframework.http.HttpStatus;
@@ -37,6 +42,14 @@ public class TransactieController {
             return  ResponseEntity.status(HttpStatus.CREATED).build();
 
     }
+    @Operation(summary = "Lees transactions")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful retrieval"),
+            @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content(schema = @Schema(implementation = Error.class))),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(schema = @Schema(implementation = Error.class))),
+            @ApiResponse(responseCode = "409", description = "Database constraint error", content = @Content(schema = @Schema(implementation = Error.class))),
+            @ApiResponse(responseCode = "500", description = "Unexpected error", content = @Content(schema = @Schema(implementation = Error.class)))
+    })
     @GetMapping("/user/transactie")
     public List<TransactieDTO> leesTransacties() {
         List<TransactieDTO> responses = new ArrayList<>();
