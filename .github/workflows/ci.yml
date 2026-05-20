@@ -25,6 +25,9 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
+      - name: Run JUnit tests
+        run: mvn clean test
+
       - name: Build Maven package
         run: mvn clean package -DskipTests # Just build the JAR for Docker to use
 
@@ -42,6 +45,9 @@ jobs:
             echo "Waiting for API docs..."
             sleep 5
           done
+
+      - name: Run Gatling tests
+        run: mvn gatling:test
 
       - name: ZAP API Scan
         uses: zaproxy/action-api-scan@v0.10.0
