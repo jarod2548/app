@@ -1,9 +1,13 @@
 spring:
+  application:
+    name: Money Rulings
   datasource:
     url: jdbc:postgresql://db:5432/${POSTGRES_DB}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 30
   flyway:
     baseline-on-migrate: true
     enabled: true

@@ -33,8 +33,9 @@ public class GlobalExceptionHandler {
     //Bij foute authorizate
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<String> handleAuthorize(BadCredentialsException e){
+        logger.error("Credenties error", e);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body("Geen toegang");
+                .body(e.getMessage());
     }
     //Bij fouten die optreden via validatie
     @ExceptionHandler(MethodArgumentNotValidException.class)

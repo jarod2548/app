@@ -63,6 +63,9 @@ public class TransactieLoadTests extends Simulation {
                         rampUsers(20).during(10),
                         constantUsersPerSec(10).during(30)
                 )
-        ).protocols(httpProtocol);
+        ).protocols(httpProtocol)
+                .assertions(
+                        global().failedRequests().percent().lt(5.0)
+                );;
     }
 }
