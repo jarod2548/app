@@ -17,20 +17,24 @@ public class BudgetDBO {
     private UUID id;
     @Column(name = "Aantal")
     private BigDecimal aantal;
-    @Column(name = "BeginDatum")
+    @Column(name = "Begindatum")
     private LocalDateTime beginDatum;
-    @Column(name = "EindDatum")
+    @Column(name = "Einddatum")
     private LocalDateTime eindDatum;
+    @Column(name = "Naam")
+    private String naam;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserDBO user;
 
     public BudgetDBO(){};
 
-    public BudgetDBO(BigDecimal Aantal,
+    public BudgetDBO(String Naam,
+                     BigDecimal Aantal,
                      LocalDateTime BeginDatum,
                      LocalDateTime EindDatum,
                      UserDBO user){
+        this.naam = Naam;
         this.aantal = Aantal;
         this.beginDatum = BeginDatum;
         this.eindDatum = EindDatum;
@@ -75,5 +79,9 @@ public class BudgetDBO {
 
     public UUID getId() {
         return id;
+    }
+
+    public String getNaam() {
+        return naam;
     }
 }

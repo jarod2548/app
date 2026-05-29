@@ -2,6 +2,7 @@ package org.app.transaction.repository;
 
 import jakarta.persistence.*;
 import org.app.Account.infrastructure.UserDBO;
+import org.app.categorie.repository.CategorieDBO;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.math.BigDecimal;
@@ -25,19 +26,24 @@ public class TransactieDBO
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserDBO user;
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "categorie_id", nullable = true)
+    private CategorieDBO categorie;
 
     protected  TransactieDBO(){}
 
     public TransactieDBO( String Beschrijving,
                           LocalDateTime CreatieDatum,
                           BigDecimal Aantal,
-                          UserDBO userDBO)
+                          UserDBO userDBO,
+                          CategorieDBO categorieDBO)
     {
 
         beschrijving = Beschrijving;
         creatieDatum = CreatieDatum;
         aantal = Aantal;
         user = userDBO;
+        categorie = categorieDBO;
     }
 
     public UUID getId() {return  id;}
@@ -58,5 +64,13 @@ public class TransactieDBO
 
     public void setUser(UserDBO user) {
         this.user = user;
+    }
+
+    public CategorieDBO getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(CategorieDBO categorie) {
+        this.categorie = categorie;
     }
 }

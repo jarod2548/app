@@ -2,8 +2,9 @@ package org.example.budget.api;
 
 import org.app.budget.api.BudgetController;
 import org.app.budget.api.BudgetCreateDTO;
-import org.app.budget.api.BudgetDTO;
+import org.app.budget.api.BudgetResponseDTO;
 import org.app.budget.domain.Budget;
+import org.app.budget.service.BudgetOverviewService;
 import org.app.budget.service.BudgetService;
 import org.app.config.UserPrincipal;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,13 +24,14 @@ import static org.mockito.Mockito.when;
 public class BudgetControllerTests {
     @Mock
     private BudgetService service;
+    private BudgetOverviewService budgetOverviewService;
 
     private BudgetController controller;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        controller = new BudgetController(service);
+        controller = new BudgetController(service, budgetOverviewService);
     }
 
     private UserPrincipal createFakePrincipal() {
@@ -49,7 +51,7 @@ public class BudgetControllerTests {
         when(service.maakBudget(any(Budget.class), any(UUID.class)))
                 .thenReturn(budget);
 
-        ResponseEntity<BudgetDTO> response = controller.maakBudget(dto, user);
+        ResponseEntity<BudgetResponseDTO> response = controller.maakBudget(dto, user);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         verify(service).maakBudget(any(Budget.class), any(UUID.class));

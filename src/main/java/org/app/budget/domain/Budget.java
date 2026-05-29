@@ -23,11 +23,13 @@ public class Budget {
     }
 
     public BudgetDBO naarDBO(UserDBO userDBO){
-        BudgetDBO dbo = new BudgetDBO(aantal, beginDatum, eindDatum, userDBO);
+        BudgetDBO dbo = new BudgetDBO(naam, aantal, beginDatum, eindDatum, userDBO);
         return dbo;
     }
 
     public Budget(BudgetDBO dbo){
+        id = dbo.getId();
+        naam = dbo.getNaam();
         aantal = dbo.getAantal();
         beginDatum = dbo.getBeginDatum();
         eindDatum = dbo.getEindDatum();

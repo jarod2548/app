@@ -11,6 +11,7 @@ public class LoginDTO {
     @Size(min = 6, message = "Wachtwoord moet minimaal 6 karakters bevatten")
     private String wachtwoord;
 
+    //Voor de creatie van Json bestand door Springboot
     public LoginDTO(){}
 
     public User naarUser(){

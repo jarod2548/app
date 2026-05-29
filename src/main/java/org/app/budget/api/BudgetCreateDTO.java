@@ -19,9 +19,8 @@ public class BudgetCreateDTO {
     private LocalDateTime beginDatum;
     private LocalDateTime eindDatum;
 
-    public BudgetCreateDTO(){
-
-    }
+    //Voor de creatie van Json bestand door Springboot
+    public BudgetCreateDTO(){}
 
     public Budget naarBudget(){
         return new Budget(aantal,naam, beginDatum,eindDatum);

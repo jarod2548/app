@@ -6,14 +6,15 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class BudgetDTO {
+public class BudgetResponseDTO {
     private UUID id;
     private String naam;
     private BigDecimal aantal;
     private LocalDateTime beginDatum;
     private LocalDateTime eindDatum;
 
-    public BudgetDTO(Budget model){
+    public BudgetResponseDTO(Budget model){
+        id = model.getId();
         aantal = model.getAantal();
         beginDatum = model.getBeginDatum();
         eindDatum = model.getEindDatum();

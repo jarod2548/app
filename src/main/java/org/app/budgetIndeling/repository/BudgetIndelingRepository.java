@@ -8,5 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface BudgetIndelingRepository extends JpaRepository<BudgetIndelingDBO, UUID> {
-    List<BudgetIndelingDBO> findByBudget_User_Id(UUID userId);
+    List<BudgetIndelingDBO> findByBudget_Id(UUID budgetId);
 }

@@ -4,13 +4,12 @@ import jakarta.validation.Valid;
 import org.app.Account.domain.User;
 import org.app.Account.service.AuthorizationService;
 import org.app.Common.CookieService;
+import org.app.config.Exceptions.UserAlreadyExistsException;
 import org.app.config.JWTService;
 import org.app.config.UserPrincipal;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.AuthenticatedPrincipal;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +32,8 @@ public class AuthorizationController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> Login(@RequestBody @Valid LoginDTO dto) {
+
+
         User response = authorizationService.Login(dto.naarUser());
         String token = jwtService.generateToken(response);
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE,

@@ -2,6 +2,10 @@ package org.app.transaction.service;
 
 import org.app.Account.infrastructure.UserDBO;
 import org.app.Account.infrastructure.UserRepository;
+import org.app.Account.service.AuthorizationService;
+import org.app.budget.domain.Budget;
+import org.app.categorie.repository.CategorieDBO;
+import org.app.categorie.service.CategorieService;
 import org.springframework.transaction.annotation.Transactional;
 import org.app.transaction.repository.TransactieDBO;
 import org.app.transaction.domain.Transactie;
@@ -17,32 +21,45 @@ import java.util.UUID;
 public class TransactieService {
 
     private  final TransactieRepository transactieRepository;
-    private final UserRepository userRepository;
+    private final AuthorizationService authorizationService;
+    private final CategorieService categorieService;
 
-    public TransactieService(TransactieRepository transactieRepository, UserRepository userRepository) {
+    public TransactieService(TransactieRepository transactieRepository, AuthorizationService authorizationService, CategorieService categorieService) {
         this.transactieRepository = transactieRepository;
-        this.userRepository = userRepository;
+        this.authorizationService = authorizationService;
+        this.categorieService = categorieService;
     }
 
 
     @Transactional
     public Transactie slaTransactieOp(Transactie model, UUID userID)
     {
-            UserDBO userDBO = userRepository.getReferenceById(userID);
-            TransactieDBO dbo = model.naarDBO(userDBO);
+            UserDBO userDBO = authorizationService.leesUserDBO(userID);
+            CategorieDBO categorieDBO = null;
+            if(model.getCategorieID() != null){
+                categorieDBO = categorieService.leesCategorieDBO(model.getCategorieID());
+            }
+            TransactieDBO dbo = model.naarDBO(userDBO, categorieDBO);
             TransactieDBO saved = transactieRepository.save(dbo);
             return new Transactie(saved);
     }
 
-    public List<Transactie> leesTransacties()
+    public List<Transactie> leesTransacties(UUID userID)
     {
-        List<TransactieDBO> dboList = transactieRepository.findAll();
-        List<Transactie> transacties = new ArrayList<>();
-        for(TransactieDBO dbo : dboList)
-        {
-            transacties.add(new Transactie(dbo));
-        }
-        return transacties;
+        return transactieRepository.findByUser_Id(userID)
+                .stream()
+                .map(Transactie::new)
+                .toList();
+
+    }
+
+    public List<Transactie> leesTransactiesTussenTijden(UUID userID, Budget budget){
+        return  transactieRepository.findByUser_IdAndCreatieDatumBetween(userID,
+                budget.getBeginDatum(),
+                budget.getEindDatum())
+                .stream()
+                .map(Transactie::new)
+                .toList();
     }
 
 

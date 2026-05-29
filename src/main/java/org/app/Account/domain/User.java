@@ -26,8 +26,8 @@ public class User {
         email = Email;
     }
 
-    public UserDBO naarDBO(){
-        return new UserDBO(username, wachtwoord, role, email);
+    public UserDBO naarDBO(String encryptedWachtwoord){
+        return new UserDBO(username, encryptedWachtwoord, role, email);
     }
 
     public User(UserDBO dbo){

@@ -16,6 +16,7 @@ public class TransactieCreateDTO {
     @NotNull(message = "Datum moet ingevuld zijn")
     private LocalDateTime datum;
 
+    //Voor de creatie van Json bestand door Springboot
     public TransactieCreateDTO(){}
 
 

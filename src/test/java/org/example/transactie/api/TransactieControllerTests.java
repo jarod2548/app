@@ -66,16 +66,18 @@ class TransactieControllerTests {
     @Test
     void leesTransacties_shouldReturnListFromService() {
 
+        UserPrincipal user = createFakePrincipal();
+
         Transactie t1 = new Transactie(new BigDecimal("10.00"), "Test 1", LocalDateTime.now());
         Transactie t2 = new Transactie(new BigDecimal("20.00"), "Test 2", LocalDateTime.now());
 
-        when(service.leesTransacties()).thenReturn(List.of(t1, t2));
+        when(service.leesTransacties(any(UUID.class))).thenReturn(List.of(t1, t2));
 
-        List<TransactieDTO> result = controller.leesTransacties();
+        List<TransactieDTO> result = controller.leesTransacties(user);
 
         assertEquals(2, result.size());
 
-        verify(service).leesTransacties();
+        verify(service).leesTransacties(user.getId());
         verifyNoMoreInteractions(service);
     }
 }

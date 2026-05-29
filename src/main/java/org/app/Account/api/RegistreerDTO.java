@@ -15,7 +15,7 @@ public class RegistreerDTO {
     @Email(message = "Ongeldig email adres")
     private String email;
 
-
+    //Voor de creatie van Json bestand door Springboot
     public RegistreerDTO(){};
 
     public User naarUser(){

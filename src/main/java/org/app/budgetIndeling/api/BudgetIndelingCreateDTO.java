@@ -20,7 +20,8 @@ public class BudgetIndelingCreateDTO {
     public BudgetIndeling naarModel() {
         return new BudgetIndeling(aantal, categorieID, budgetID);
     }
-
+    //Voor de creatie van Json bestand door Springboot
+    public BudgetIndelingCreateDTO(){}
 
     public BigDecimal getAantal() {
         return aantal;

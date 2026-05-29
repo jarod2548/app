@@ -51,9 +51,9 @@ public class TransactieController {
             @ApiResponse(responseCode = "500", description = "Unexpected error", content = @Content(schema = @Schema(implementation = Error.class)))
     })
     @GetMapping("/user/transactie")
-    public List<TransactieDTO> leesTransacties() {
+    public List<TransactieDTO> leesTransacties(@AuthenticationPrincipal UserPrincipal user) {
         List<TransactieDTO> responses = new ArrayList<>();
-        List<Transactie> transacties = service.leesTransacties();
+        List<Transactie> transacties = service.leesTransacties(user.getId());
         for (Transactie t : transacties) {
             responses.add(new TransactieDTO(t));
         }

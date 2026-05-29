@@ -4,7 +4,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.app.budget.api.BudgetCreateDTO;
-import org.app.budget.api.BudgetDTO;
+import org.app.budget.api.BudgetResponseDTO;
 import org.app.budget.domain.Budget;
 import org.junit.jupiter.api.Test;
 
@@ -59,7 +59,7 @@ public class BudgetModelTests {
                 LocalDateTime.of(2026, 3, 19, 12, 0),
                 LocalDateTime.of(2026, 3, 19, 12, 0));
 
-        BudgetDTO dto = new BudgetDTO(budget);
+        BudgetResponseDTO dto = new BudgetResponseDTO(budget);
 
         assertEquals(budget.getId(), dto.getId());
         assertEquals(budget.getNaam(), dto.getNaam());
