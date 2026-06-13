@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -21,7 +22,8 @@ public class CategorieController {
     }
 
     @PostMapping("/user/categorie")
-    public ResponseEntity<Void> maakCategorie(CategorieCreateDTO dto,
+    public ResponseEntity<Void> maakCategorie(@RequestBody
+                                              CategorieCreateDTO dto,
                                               @AuthenticationPrincipal UserPrincipal user) {
         Categorie model = dto.naarModel();
         service.maakCategorie(model, user.getId());

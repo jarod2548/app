@@ -41,6 +41,13 @@ public class AuthorizationController {
                                 .toString())
                 .body(new LoginResponseDTO(response));
     }
+    @PostMapping("/logout")
+    public ResponseEntity<Void> Logout(){
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE,
+                        cookieService.clearJwtCookie()
+                                .toString()).build();
+    }
+
     @GetMapping("/me")
     public ResponseEntity<LoginResponseDTO> authorize(@AuthenticationPrincipal UserPrincipal user){
         if(user == null){

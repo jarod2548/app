@@ -31,8 +31,22 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
       - name: Run JUnit tests
         run: mvn clean test
+
+      - name: SonarQube Analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn verify sonar:sonar \
+            -Dsonar.projectKey=jarod2548_app
 
       - name: Build Maven package
         run: mvn clean package -DskipTests # Just build the JAR for Docker to use
@@ -53,7 +67,7 @@ jobs:
           done
 
       - name: Run Gatling tests
-        run: mvn gatling:test
+        run: mvn gatling:test -Dgatling.simulationClass=TransactieLoadTests
 
       - name: ZAP API Scan
         uses: zaproxy/action-api-scan@v0.10.0

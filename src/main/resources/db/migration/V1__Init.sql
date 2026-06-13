@@ -11,7 +11,7 @@ CREATE TABLE Users (
 CREATE TABLE Categorie (
                            ID UUID PRIMARY KEY ,
                            NAAM VARCHAR(30) ,
-                           IsBelangrijk bit ,
+                           IsBelangrijk Boolean ,
                            User_id UUID NOT NULL ,
 
                            CONSTRAINT fk_categorie_user
@@ -23,7 +23,7 @@ CREATE TABLE Categorie (
 CREATE TABLE Transacties (
     ID UUID PRIMARY KEY ,
     Aantal DECIMAL(15,2) NOT NULL,
-    CreatieDatum TIMESTAMP WITH TIME ZONE NOT NULL,
+    CreatieDatum Date NOT NULL,
     Beschrijving VARCHAR(255) NULL,
     User_id UUID NOT NULL ,
     Categorie_id UUID NULL,
@@ -42,8 +42,8 @@ CREATE TABLE Budget (
                         ID UUID PRIMARY KEY ,
                         Aantal DECIMAL(15,2) NOT NULL ,
                         Naam VARCHAR(50) NOT NULL,
-                        BeginDatum DATE NULL ,
-                        EindDatum Date Null ,
+                        BeginDatum DATE NOT NULL ,
+                        EindDatum Date NOT NULL ,
                         User_id UUID NOT NULL ,
 
                         CONSTRAINT fk_budget_user

@@ -15,4 +15,13 @@ public class CookieService {
                 .sameSite("Strict")
                 .build();
     }
+
+    public ResponseCookie clearJwtCookie() {
+        return ResponseCookie.from("jwt", "")
+                .httpOnly(true)
+                .secure(true)
+                .path("/")
+                .maxAge(0)
+                .build();
+    }
 }

@@ -27,7 +27,6 @@ public class BudgetIndelingService {
     }
 
     public BudgetIndelingOverview maakBudgetIndeling(BudgetIndeling model) {
-
         CategorieDBO categorieDBO = categorieService.leesCategorieDBO(model.getCategorieID());
         BudgetDBO budgetDBO = budgetService.leesBudgetDBO(model.getBudgetID());
         BudgetIndelingDBO dbo = model.naarDBO(categorieDBO, budgetDBO);

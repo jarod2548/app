@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.app.Account.infrastructure.UserDBO;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -18,9 +19,9 @@ public class BudgetDBO {
     @Column(name = "Aantal")
     private BigDecimal aantal;
     @Column(name = "Begindatum")
-    private LocalDateTime beginDatum;
+    private LocalDate beginDatum;
     @Column(name = "Einddatum")
-    private LocalDateTime eindDatum;
+    private LocalDate eindDatum;
     @Column(name = "Naam")
     private String naam;
     @ManyToOne
@@ -31,8 +32,8 @@ public class BudgetDBO {
 
     public BudgetDBO(String Naam,
                      BigDecimal Aantal,
-                     LocalDateTime BeginDatum,
-                     LocalDateTime EindDatum,
+                     LocalDate BeginDatum,
+                     LocalDate EindDatum,
                      UserDBO user){
         this.naam = Naam;
         this.aantal = Aantal;
@@ -41,11 +42,11 @@ public class BudgetDBO {
         this.user = user;
     }
 
-    public void setBeginDatum(LocalDateTime beginDatum) {
+    public void setBeginDatum(LocalDate beginDatum) {
         this.beginDatum = beginDatum;
     }
 
-    public void setEindDatum(LocalDateTime eindDatum) {
+    public void setEindDatum(LocalDate eindDatum) {
         this.eindDatum = eindDatum;
     }
 
@@ -53,11 +54,11 @@ public class BudgetDBO {
         this.aantal = aantal;
     }
 
-    public LocalDateTime getEindDatum() {
+    public LocalDate getEindDatum() {
         return eindDatum;
     }
 
-    public LocalDateTime getBeginDatum() {
+    public LocalDate getBeginDatum() {
         return beginDatum;
     }
 

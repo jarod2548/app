@@ -31,7 +31,7 @@ public class BudgetOverviewService {
         List<BudgetIndeling> indelingen = budgetIndelingService.leesBudgetIndeling(budgetId);
         List<Transactie> transacties = transactieService.leesTransactiesTussenTijden(userID, budget);
 
-        BigDecimal totaalUitgave = berekenTransactiesUitgaveAantal(transacties);
+        BigDecimal totaalUitgave = budgetService.berekenTransactiesUitgaveAantal(transacties);
         List<BudgetIndelingOverview> updatedIndelingen =  berekenGegevensVoorIndelingen(indelingen, transacties, totaalUitgave);
 
         return new BudgetOverview(budget, updatedIndelingen, totaalUitgave);
@@ -46,7 +46,7 @@ public class BudgetOverviewService {
                 .map(BudgetIndeling::getCategorieID)
                 .collect(Collectors.toSet());
 
-        BigDecimal overigeUitgave = berekenTransactiesUitgaveAantal(transacties.stream()
+        BigDecimal overigeUitgave = budgetService.berekenTransactiesUitgaveAantal(transacties.stream()
                 .filter(t -> !matchedCategories.contains(t.getCategorieID()))
                 .toList());
         Map<UUID, List<Transactie>> transactiesPerCategorie =
@@ -74,7 +74,7 @@ public class BudgetOverviewService {
         List<Transactie> transacties =
                 transactiesPerCategorie.getOrDefault(budgetIndeling.getCategorieID(), List.of());
 
-        BigDecimal uitgave = berekenTransactiesUitgaveAantal(transacties);
+        BigDecimal uitgave = budgetService.berekenTransactiesUitgaveAantal(transacties);
 
         BigDecimal percentage = totaalUitgave.compareTo(BigDecimal.ZERO) == 0
                 ? BigDecimal.ZERO
@@ -85,15 +85,10 @@ public class BudgetOverviewService {
                 budgetIndeling.getCategorieNaam(),
                 uitgave,
                 percentage,
-                budgetIndeling.getId()
+                budgetIndeling.getCategorieID()
         );
     }
 
-    private BigDecimal berekenTransactiesUitgaveAantal(List<Transactie> transacties){
-        return  transacties.stream()
-                .map(Transactie::getAantal)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
 
     private BudgetIndelingOverview maakOverigeBudgetIndeling(BigDecimal overigeUitgave, BigDecimal totaalUitgave){
         BigDecimal percentage = totaalUitgave.compareTo(BigDecimal.ZERO) == 0

@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import org.app.budget.domain.Budget;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class BudgetCreateDTO {
@@ -16,8 +17,10 @@ public class BudgetCreateDTO {
     @NotNull
     @Size(min = 1, message = "Naam moet 1 karakter hebben")
     private String naam;
-    private LocalDateTime beginDatum;
-    private LocalDateTime eindDatum;
+    @NotNull
+    private LocalDate beginDatum;
+    @NotNull
+    private LocalDate eindDatum;
 
     //Voor de creatie van Json bestand door Springboot
     public BudgetCreateDTO(){}
@@ -26,11 +29,11 @@ public class BudgetCreateDTO {
         return new Budget(aantal,naam, beginDatum,eindDatum);
     }
 
-    public LocalDateTime getEindDatum() {
+    public LocalDate getEindDatum() {
         return eindDatum;
     }
 
-    public LocalDateTime getBeginDatum() {
+    public LocalDate getBeginDatum() {
         return beginDatum;
     }
 
@@ -38,11 +41,11 @@ public class BudgetCreateDTO {
         return aantal;
     }
 
-    public void setEindDatum(LocalDateTime eindDatum) {
+    public void setEindDatum(LocalDate eindDatum) {
         this.eindDatum = eindDatum;
     }
 
-    public void setBeginDatum(LocalDateTime beginDatum) {
+    public void setBeginDatum(LocalDate beginDatum) {
         this.beginDatum = beginDatum;
     }
 

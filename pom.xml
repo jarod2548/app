@@ -26,6 +26,7 @@
 
     <properties>
         <java.version>25</java.version>
+        <sonar.organization>jarod2548</sonar.organization>
     </properties>
 
     <dependencies>
@@ -108,7 +109,7 @@
             <version>42.7.3</version>
         </dependency>
 
-        <!-- JUnit for testing -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -170,6 +171,7 @@
             <version>3.15.0</version>
             <scope>compile</scope>
         </dependency>
+
 
         <!-- Source: https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk18on -->
         <dependency>

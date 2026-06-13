@@ -1,7 +1,6 @@
 package org.app.budgetIndeling.api;
 
 
-import org.app.budgetIndeling.domain.BudgetIndeling;
 import org.app.budgetIndeling.domain.BudgetIndelingOverview;
 
 import java.math.BigDecimal;
@@ -15,7 +14,7 @@ public class BudgetIndelingResponseDTO {
     private String categorieNaam;
 
     public BudgetIndelingResponseDTO(BudgetIndelingOverview model) {
-        this.id = model.getId();
+        this.id = model.getCategorieID();
         this.aantal = model.getUitgave();
         this.percentage = model.getPercentage();
         this.categorieNaam = model.getCategorieNaam();

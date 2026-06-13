@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import org.app.transaction.domain.Transactie;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TransactieCreateDTO {
@@ -14,7 +15,7 @@ public class TransactieCreateDTO {
     private BigDecimal aantal;
     private String beschrijving;
     @NotNull(message = "Datum moet ingevuld zijn")
-    private LocalDateTime datum;
+    private LocalDate datum;
 
     //Voor de creatie van Json bestand door Springboot
     public TransactieCreateDTO(){}
@@ -29,7 +30,7 @@ public class TransactieCreateDTO {
     public Long getId() {return id;}
     public BigDecimal getAantal() { return aantal; }
     public String getBeschrijving() { return beschrijving; }
-    public LocalDateTime getDatum() { return datum; }
+    public LocalDate getDatum() { return datum; }
 
     public void setId(Long ID) {id = ID;}
 
@@ -41,7 +42,7 @@ public class TransactieCreateDTO {
         this.beschrijving = beschrijving;
     }
 
-    public void setDatum(LocalDateTime datum) {
+    public void setDatum(LocalDate datum) {
         this.datum = datum;
     }
 }

@@ -6,7 +6,7 @@ import org.app.Account.infrastructure.UserDBO;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Categories")
+@Table(name = "Categorie")
 public class CategorieDBO {
 
     @Id
@@ -14,7 +14,7 @@ public class CategorieDBO {
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "IsBelangrijk")
+    @Column(name = "Isbelangrijk")
     private boolean isBelangrijk;
 
     @Column(name = "Naam")

@@ -6,6 +6,7 @@ import org.app.categorie.repository.CategorieDBO;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -20,7 +21,7 @@ public class TransactieDBO
     @Column(name = "beschrijving")
     private String beschrijving;
     @Column(name = "creatiedatum")
-    private LocalDateTime creatieDatum;
+    private LocalDate creatieDatum;
     @Column(name = "aantal")
     private BigDecimal aantal;
     @ManyToOne
@@ -33,7 +34,7 @@ public class TransactieDBO
     protected  TransactieDBO(){}
 
     public TransactieDBO( String Beschrijving,
-                          LocalDateTime CreatieDatum,
+                          LocalDate CreatieDatum,
                           BigDecimal Aantal,
                           UserDBO userDBO,
                           CategorieDBO categorieDBO)
@@ -52,8 +53,8 @@ public class TransactieDBO
     public String getBeschrijving(){return beschrijving;}
     public void setBeschrijving(String Beschrijving) {beschrijving = Beschrijving;}
 
-    public LocalDateTime getCreatieDatum(){return  creatieDatum;}
-    public void setCreatieDatum(LocalDateTime CreatieDatum){creatieDatum = CreatieDatum;}
+    public LocalDate getCreatieDatum(){return  creatieDatum;}
+    public void setCreatieDatum(LocalDate CreatieDatum){creatieDatum = CreatieDatum;}
 
     public BigDecimal getAantal(){return aantal;}
     public void setAantal(BigDecimal Aantal){aantal = Aantal;}

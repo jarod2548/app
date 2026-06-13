@@ -4,6 +4,7 @@ import org.app.Account.infrastructure.UserDBO;
 import org.app.budget.repository.BudgetDBO;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -11,10 +12,11 @@ public class Budget {
     private UUID id;
     private BigDecimal aantal;
     private String naam;
-    private LocalDateTime beginDatum;
-    private LocalDateTime eindDatum;
+    private LocalDate beginDatum;
+    private LocalDate eindDatum;
+    private UUID userId;
 
-    public Budget(BigDecimal Aantal, String Naam,LocalDateTime BeginDatum, LocalDateTime EindDatum)
+    public Budget(BigDecimal Aantal, String Naam,LocalDate BeginDatum, LocalDate EindDatum)
     {
         aantal = Aantal;
         beginDatum = BeginDatum;
@@ -33,6 +35,7 @@ public class Budget {
         aantal = dbo.getAantal();
         beginDatum = dbo.getBeginDatum();
         eindDatum = dbo.getEindDatum();
+        userId = dbo.getUser().getId();
     }
 
 
@@ -44,15 +47,19 @@ public class Budget {
         return aantal;
     }
 
-    public LocalDateTime getBeginDatum() {
+    public LocalDate getBeginDatum() {
         return beginDatum;
     }
 
-    public LocalDateTime getEindDatum() {
+    public LocalDate getEindDatum() {
         return eindDatum;
     }
 
     public String getNaam() {
         return naam;
+    }
+
+    public UUID getUserId() {
+        return userId;
     }
 }

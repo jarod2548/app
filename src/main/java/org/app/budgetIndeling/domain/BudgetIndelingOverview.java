@@ -9,20 +9,20 @@ public class BudgetIndelingOverview {
     private final String categorieNaam;
     private final BigDecimal uitgave;
     private BigDecimal percentage;
-    private final UUID id;
+    private final UUID categorieID;
 
     public BudgetIndelingOverview(String CategorieNaam,
                                   BigDecimal Uitgave,
                                   BigDecimal Percentage,
-                                  UUID Id){
+                                  UUID categorieID){
         categorieNaam = CategorieNaam;
         uitgave = Uitgave;
         percentage = Percentage;
-        id = Id;
+        this.categorieID = categorieID;
     }
 
     public BudgetIndelingOverview(BudgetIndelingDBO dbo) {
-        this.id = dbo.getId();
+        this.categorieID = dbo.getId();
         this.uitgave = dbo.getAantal();
         this.categorieNaam = dbo.getCategorie().getNaam();
     }
@@ -39,7 +39,7 @@ public class BudgetIndelingOverview {
         return percentage;
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getCategorieID() {
+        return categorieID;
     }
 }

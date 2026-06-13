@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -68,8 +69,8 @@ class TransactieControllerTests {
 
         UserPrincipal user = createFakePrincipal();
 
-        Transactie t1 = new Transactie(new BigDecimal("10.00"), "Test 1", LocalDateTime.now());
-        Transactie t2 = new Transactie(new BigDecimal("20.00"), "Test 2", LocalDateTime.now());
+        Transactie t1 = new Transactie(new BigDecimal("10.00"), "Test 1", LocalDate.now());
+        Transactie t2 = new Transactie(new BigDecimal("20.00"), "Test 2", LocalDate.now());
 
         when(service.leesTransacties(any(UUID.class))).thenReturn(List.of(t1, t2));
 

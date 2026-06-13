@@ -5,6 +5,7 @@ import org.app.categorie.repository.CategorieDBO;
 import org.app.transaction.repository.TransactieDBO;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -12,11 +13,12 @@ public class Transactie {
     private UUID id;
     private BigDecimal aantal;
     private String beschrijving;
-    private LocalDateTime datum;
+    private LocalDate datum;
     private UUID userID;
     private UUID categorieID;
+    private String categorieNaam;
 
-    public Transactie(BigDecimal Aantal, String Beschrijving, LocalDateTime Datum){
+    public Transactie(BigDecimal Aantal, String Beschrijving, LocalDate Datum){
         this.aantal = Aantal;
         this.beschrijving = Beschrijving;
         this.datum = Datum;
@@ -31,6 +33,9 @@ public class Transactie {
         this.categorieID = dbo.getCategorie() != null
                         ? dbo.getCategorie().getId()
                         : null;
+        this.categorieNaam = dbo.getCategorie() != null
+                ? dbo.getCategorie().getNaam()
+                : null;
     }
 
     public TransactieDBO naarDBO(UserDBO user, CategorieDBO categorieDBO){
@@ -45,10 +50,13 @@ public class Transactie {
     public UUID getId() {return id;}
     public BigDecimal getAantal() { return aantal; }
     public String getBeschrijving() { return beschrijving; }
-    public LocalDateTime getDatum() { return datum; }
+    public LocalDate getDatum() { return datum; }
 
     public UUID getCategorieID() {
         return categorieID;
     }
 
+    public String getCategorieNaam() {
+        return categorieNaam;
+    }
 }

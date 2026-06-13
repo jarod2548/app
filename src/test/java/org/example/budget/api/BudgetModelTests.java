@@ -9,6 +9,7 @@ import org.app.budget.domain.Budget;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -56,8 +57,8 @@ public class BudgetModelTests {
     void budgetDTO_shouldMapFromBudgetCorrectly() {
         Budget budget= new Budget(new BigDecimal("100"),
                 "naam",
-                LocalDateTime.of(2026, 3, 19, 12, 0),
-                LocalDateTime.of(2026, 3, 19, 12, 0));
+                LocalDate.of(2026, 3, 19),
+                LocalDate.of(2026, 3, 19));
 
         BudgetResponseDTO dto = new BudgetResponseDTO(budget);
 
@@ -70,7 +71,7 @@ public class BudgetModelTests {
 
     @Test
     void budget_shouldMapFromBudgetCreateDTOCorrectly() {
-        LocalDateTime datum = LocalDateTime.of(2026, 3, 19, 12, 0);
+        LocalDate datum = LocalDate.of(2026, 3, 19);
         BudgetCreateDTO dto = new BudgetCreateDTO();
         dto.setAantal(BigDecimal.TEN);
         dto.setNaam("naam");

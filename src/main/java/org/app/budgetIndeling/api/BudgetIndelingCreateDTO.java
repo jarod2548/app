@@ -27,6 +27,14 @@ public class BudgetIndelingCreateDTO {
         return aantal;
     }
 
+    public UUID getBudgetID() {
+        return budgetID;
+    }
+
+    public UUID getCategorieID() {
+        return categorieID;
+    }
+
     public void setAantal(BigDecimal aantal) {
         this.aantal = aantal;
     }

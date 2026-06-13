@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,8 @@ public class BudgetIndelingController {
     }
 
     @PostMapping("/user/budgetIndeling")
-    public ResponseEntity<BudgetIndelingResponseDTO> maakBudgetIndeling(BudgetIndelingCreateDTO dto) {
+    public ResponseEntity<BudgetIndelingResponseDTO> maakBudgetIndeling(@RequestBody
+            BudgetIndelingCreateDTO dto) {
         BudgetIndeling model = dto.naarModel();
         BudgetIndelingOverview responseModel = service.maakBudgetIndeling(model);
         return ResponseEntity.ok(new BudgetIndelingResponseDTO(responseModel));
