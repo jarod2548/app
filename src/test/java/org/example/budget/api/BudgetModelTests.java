@@ -25,6 +25,9 @@ public class BudgetModelTests {
         BudgetCreateDTO dto = new BudgetCreateDTO();
         dto.setAantal(null);
         dto.setNaam("naam");
+        LocalDate datum = LocalDate.of(2000,1,1);
+        dto.setBeginDatum(datum);
+        dto.setEindDatum(datum);
 
         Set<ConstraintViolation<BudgetCreateDTO>> violations = validator.validate(dto);
         assertEquals(1, violations.size());
@@ -36,6 +39,9 @@ public class BudgetModelTests {
         BudgetCreateDTO dto = new BudgetCreateDTO();
         dto.setAantal(BigDecimal.ZERO);
         dto.setNaam("naam");
+        LocalDate datum = LocalDate.of(2000,1,1);
+        dto.setBeginDatum(datum);
+        dto.setEindDatum(datum);
 
         Set<ConstraintViolation<BudgetCreateDTO>> violations = validator.validate(dto);
         assertEquals(1, violations.size());
@@ -47,6 +53,9 @@ public class BudgetModelTests {
         BudgetCreateDTO dto = new BudgetCreateDTO();
         dto.setAantal(BigDecimal.TEN);
         dto.setNaam("naam");
+        LocalDate datum = LocalDate.of(2000,1,1);
+        dto.setBeginDatum(datum);
+        dto.setEindDatum(datum);
 
         Set<ConstraintViolation<BudgetCreateDTO>> violations = validator.validate(dto);
 
