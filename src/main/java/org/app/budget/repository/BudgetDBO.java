@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.app.Account.infrastructure.UserDBO;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -17,31 +18,35 @@ public class BudgetDBO {
     private UUID id;
     @Column(name = "Aantal")
     private BigDecimal aantal;
-    @Column(name = "BeginDatum")
-    private LocalDateTime beginDatum;
-    @Column(name = "EindDatum")
-    private LocalDateTime eindDatum;
+    @Column(name = "Begindatum")
+    private LocalDate beginDatum;
+    @Column(name = "Einddatum")
+    private LocalDate eindDatum;
+    @Column(name = "Naam")
+    private String naam;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserDBO user;
 
     public BudgetDBO(){};
 
-    public BudgetDBO(BigDecimal Aantal,
-                     LocalDateTime BeginDatum,
-                     LocalDateTime EindDatum,
+    public BudgetDBO(String Naam,
+                     BigDecimal Aantal,
+                     LocalDate BeginDatum,
+                     LocalDate EindDatum,
                      UserDBO user){
+        this.naam = Naam;
         this.aantal = Aantal;
         this.beginDatum = BeginDatum;
         this.eindDatum = EindDatum;
         this.user = user;
     }
 
-    public void setBeginDatum(LocalDateTime beginDatum) {
+    public void setBeginDatum(LocalDate beginDatum) {
         this.beginDatum = beginDatum;
     }
 
-    public void setEindDatum(LocalDateTime eindDatum) {
+    public void setEindDatum(LocalDate eindDatum) {
         this.eindDatum = eindDatum;
     }
 
@@ -49,11 +54,11 @@ public class BudgetDBO {
         this.aantal = aantal;
     }
 
-    public LocalDateTime getEindDatum() {
+    public LocalDate getEindDatum() {
         return eindDatum;
     }
 
-    public LocalDateTime getBeginDatum() {
+    public LocalDate getBeginDatum() {
         return beginDatum;
     }
 
@@ -75,5 +80,9 @@ public class BudgetDBO {
 
     public UUID getId() {
         return id;
+    }
+
+    public String getNaam() {
+        return naam;
     }
 }

@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -75,7 +76,7 @@ public class TransactieComponentTests {
         {
                       "aantal": 100.00,
                       "beschrijving": "test",
-                      "datum": "2026-04-12T10:00:00"
+                      "datum": "2026-04-12"
                     }
     """;
 
@@ -93,7 +94,7 @@ public class TransactieComponentTests {
 
         assertThat(t.getAantal()).isEqualTo(new BigDecimal("100.00"));
         assertThat(t.getBeschrijving()).isEqualTo("test");
-        assertThat(t.getCreatieDatum()).isEqualTo(LocalDateTime.of(2026, 4, 12, 10, 0));
+        assertThat(t.getCreatieDatum()).isEqualTo(LocalDate.of(2026, 4, 12));
         assertThat(t.getUser().getId()).isEqualTo(userID);
     }
 }

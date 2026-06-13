@@ -2,11 +2,18 @@ package org.app.budgetIndeling.api;
 
 
 import org.app.budgetIndeling.domain.BudgetIndeling;
+import org.app.budgetIndeling.domain.BudgetIndelingOverview;
 import org.app.budgetIndeling.service.BudgetIndelingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class BudgetIndelingController {
@@ -17,13 +24,11 @@ public class BudgetIndelingController {
         this.service = service;
     }
 
-    public BudgetIndelingResponseDTO maakBudgetIndeling(BudgetIndelingCreateDTO dto) {
+    @PostMapping("/user/budgetIndeling")
+    public ResponseEntity<BudgetIndelingResponseDTO> maakBudgetIndeling(@RequestBody
+            BudgetIndelingCreateDTO dto) {
         BudgetIndeling model = dto.naarModel();
-        BudgetIndeling responseModel = service.maakBudgetIndeling(model);
-        return new BudgetIndelingResponseDTO(responseModel);
+        BudgetIndelingOverview responseModel = service.maakBudgetIndeling(model);
+        return ResponseEntity.ok(new BudgetIndelingResponseDTO(responseModel));
     }
-
-    //public ResponseEntity<List<BudgetIndelingResponseDTO>> leesBudgetIndeling(){
-
-    //}
 }

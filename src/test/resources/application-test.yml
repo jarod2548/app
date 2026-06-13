@@ -25,4 +25,4 @@ spring:
 
 
 jwt:
-  secret: ${JWT_SECRET}
+  secret: my-test-jwt-secret-key-12345

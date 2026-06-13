@@ -9,9 +9,8 @@ public class CategorieCreateDTO {
     @NotNull(message = "Naam moet ingevuld zijn")
     private String naam;
 
-    public CategorieCreateDTO() {
-
-    }
+    //Voor de creatie van Json bestand door Springboot
+    public CategorieCreateDTO() {}
     public Categorie naarModel(){
         return  new Categorie(isBelangrijk, naam);
     }

@@ -16,6 +16,8 @@ public class CategorieResponseDTO {
         this.naam = model.getNaam();
     }
 
+    public CategorieResponseDTO(){}
+
     public UUID getId() {
         return id;
     }

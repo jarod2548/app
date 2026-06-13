@@ -18,12 +18,6 @@ public class TransactieLoadTests extends Simulation {
                     .contentTypeHeader("application/json")
                     .acceptHeader("application/json");
 
-    String payload = """
-        {
-          "amount": 100,
-          "description": "gatling test"
-        }
-        """;
 
     ScenarioBuilder scn =
             scenario("Transactie Load Test")
@@ -40,7 +34,7 @@ public class TransactieLoadTests extends Simulation {
                                     .check(HttpDsl.status().is(200))
                     )
 
-                    // TEST BUSINESS ENDPOINT MANY TIMES
+
                     .repeat(100).on(
                             exec(
                                     http("Create Transactie")
@@ -63,6 +57,9 @@ public class TransactieLoadTests extends Simulation {
                         rampUsers(20).during(10),
                         constantUsersPerSec(10).during(30)
                 )
-        ).protocols(httpProtocol);
+        ).protocols(httpProtocol)
+                .assertions(
+                        global().failedRequests().percent().lt(5.0)
+                );
     }
 }

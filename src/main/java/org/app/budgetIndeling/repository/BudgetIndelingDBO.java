@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
-@Table(name = "BudgetIndeling")
+@Table(name = "budget_indeling")
 public class BudgetIndelingDBO {
 
     @Id

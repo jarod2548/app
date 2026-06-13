@@ -4,11 +4,12 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.app.budget.api.BudgetCreateDTO;
-import org.app.budget.api.BudgetDTO;
+import org.app.budget.api.BudgetResponseDTO;
 import org.app.budget.domain.Budget;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -24,6 +25,9 @@ public class BudgetModelTests {
         BudgetCreateDTO dto = new BudgetCreateDTO();
         dto.setAantal(null);
         dto.setNaam("naam");
+        LocalDate datum = LocalDate.of(2000,1,1);
+        dto.setBeginDatum(datum);
+        dto.setEindDatum(datum);
 
         Set<ConstraintViolation<BudgetCreateDTO>> violations = validator.validate(dto);
         assertEquals(1, violations.size());
@@ -35,6 +39,9 @@ public class BudgetModelTests {
         BudgetCreateDTO dto = new BudgetCreateDTO();
         dto.setAantal(BigDecimal.ZERO);
         dto.setNaam("naam");
+        LocalDate datum = LocalDate.of(2000,1,1);
+        dto.setBeginDatum(datum);
+        dto.setEindDatum(datum);
 
         Set<ConstraintViolation<BudgetCreateDTO>> violations = validator.validate(dto);
         assertEquals(1, violations.size());
@@ -46,6 +53,9 @@ public class BudgetModelTests {
         BudgetCreateDTO dto = new BudgetCreateDTO();
         dto.setAantal(BigDecimal.TEN);
         dto.setNaam("naam");
+        LocalDate datum = LocalDate.of(2000,1,1);
+        dto.setBeginDatum(datum);
+        dto.setEindDatum(datum);
 
         Set<ConstraintViolation<BudgetCreateDTO>> violations = validator.validate(dto);
 
@@ -56,10 +66,10 @@ public class BudgetModelTests {
     void budgetDTO_shouldMapFromBudgetCorrectly() {
         Budget budget= new Budget(new BigDecimal("100"),
                 "naam",
-                LocalDateTime.of(2026, 3, 19, 12, 0),
-                LocalDateTime.of(2026, 3, 19, 12, 0));
+                LocalDate.of(2026, 3, 19),
+                LocalDate.of(2026, 3, 19));
 
-        BudgetDTO dto = new BudgetDTO(budget);
+        BudgetResponseDTO dto = new BudgetResponseDTO(budget);
 
         assertEquals(budget.getId(), dto.getId());
         assertEquals(budget.getNaam(), dto.getNaam());
@@ -70,7 +80,7 @@ public class BudgetModelTests {
 
     @Test
     void budget_shouldMapFromBudgetCreateDTOCorrectly() {
-        LocalDateTime datum = LocalDateTime.of(2026, 3, 19, 12, 0);
+        LocalDate datum = LocalDate.of(2026, 3, 19);
         BudgetCreateDTO dto = new BudgetCreateDTO();
         dto.setAantal(BigDecimal.TEN);
         dto.setNaam("naam");

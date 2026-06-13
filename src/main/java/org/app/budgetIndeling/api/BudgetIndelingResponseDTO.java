@@ -1,8 +1,7 @@
 package org.app.budgetIndeling.api;
 
 
-import org.app.budgetIndeling.domain.BudgetIndeling;
-import org.app.categorie.api.CategorieResponseDTO;
+import org.app.budgetIndeling.domain.BudgetIndelingOverview;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -11,12 +10,12 @@ public class BudgetIndelingResponseDTO {
 
     private UUID id;
     private BigDecimal aantal;
-    private float percentage;
+    private BigDecimal percentage;
     private String categorieNaam;
 
-    public BudgetIndelingResponseDTO(BudgetIndeling model) {
-        this.id = model.getId();
-        this.aantal = model.getAantal();
+    public BudgetIndelingResponseDTO(BudgetIndelingOverview model) {
+        this.id = model.getCategorieID();
+        this.aantal = model.getUitgave();
         this.percentage = model.getPercentage();
         this.categorieNaam = model.getCategorieNaam();
     }
@@ -29,7 +28,7 @@ public class BudgetIndelingResponseDTO {
         return aantal;
     }
 
-    public float getPercentage() {
+    public BigDecimal getPercentage() {
         return percentage;
     }
 

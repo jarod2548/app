@@ -3,6 +3,7 @@ package org.app.budgetIndeling.service;
 import org.app.budget.repository.BudgetDBO;
 import org.app.budget.service.BudgetService;
 import org.app.budgetIndeling.domain.BudgetIndeling;
+import org.app.budgetIndeling.domain.BudgetIndelingOverview;
 import org.app.budgetIndeling.repository.BudgetIndelingDBO;
 import org.app.budgetIndeling.repository.BudgetIndelingRepository;
 import org.app.categorie.repository.CategorieDBO;
@@ -25,17 +26,16 @@ public class BudgetIndelingService {
         this.budgetService = budgetService;
     }
 
-    public BudgetIndeling maakBudgetIndeling(BudgetIndeling model) {
-
+    public BudgetIndelingOverview maakBudgetIndeling(BudgetIndeling model) {
         CategorieDBO categorieDBO = categorieService.leesCategorieDBO(model.getCategorieID());
         BudgetDBO budgetDBO = budgetService.leesBudgetDBO(model.getBudgetID());
         BudgetIndelingDBO dbo = model.naarDBO(categorieDBO, budgetDBO);
         BudgetIndelingDBO saved = repository.save(dbo);
-        return new BudgetIndeling(saved);
+        return new BudgetIndelingOverview(saved);
     }
 
-    public List<BudgetIndeling> leesBudgetIndeling(UUID userID){
-        return repository.findByBudget_User_Id(userID)
+    public List<BudgetIndeling> leesBudgetIndeling(UUID budgetID){
+        return repository.findByBudget_Id(budgetID)
                 .stream()
                 .map(BudgetIndeling::new)
                 .toList();

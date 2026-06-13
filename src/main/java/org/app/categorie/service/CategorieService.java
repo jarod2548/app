@@ -1,35 +1,41 @@
 package org.app.categorie.service;
 
 import org.app.Account.infrastructure.UserDBO;
-import org.app.Account.infrastructure.UserRepository;
+import org.app.Account.service.AuthorizationService;
 import org.app.categorie.domain.Categorie;
 import org.app.categorie.repository.CategorieDBO;
 import org.app.categorie.repository.CategorieRepository;
-import org.app.config.Exceptions.NotFoundException;
+import org.app.config.Exceptions.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
 public class CategorieService {
 
     private final CategorieRepository repository;
-    private final UserRepository userReposxitory;
+    private final AuthorizationService authorizationService;
 
-    public CategorieService(CategorieRepository repository,
-                            UserRepository userReposxitory) {
+    public CategorieService(CategorieRepository repository, AuthorizationService authorizationService) {
         this.repository = repository;
-        this.userReposxitory = userReposxitory;
+        this.authorizationService = authorizationService;
     }
 
-    public Categorie maakCategorie(Categorie model, UUID userId) {
-        UserDBO userDBO = userReposxitory.getReferenceById(userId);
+    public void maakCategorie(Categorie model, UUID userId) {
+        UserDBO userDBO = authorizationService.leesUserDBO(userId);
         CategorieDBO dbo = model.naarDBO(userDBO);
         CategorieDBO saved = repository.save(dbo);
-        return new Categorie(saved);
     }
 
+    public List<Categorie> leesCategories(UUID userID){
+        List<CategorieDBO> result = repository.findByUser_Id(userID);
+        return  result.stream().map(Categorie::new).toList();
+    }
+
+
     public CategorieDBO leesCategorieDBO(UUID categorieID){
-        return  repository.findById(categorieID).orElseThrow(() -> new NotFoundException("Categorie bestaat niet"));
+        return  repository.findById(categorieID)
+                .orElseThrow(() -> new EntityNotFoundException("Categorie bestaat niet"));
     }
 }

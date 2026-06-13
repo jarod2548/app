@@ -9,7 +9,7 @@ import org.app.transaction.api.TransactieDTO;
 import org.app.transaction.domain.Transactie;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,7 +23,7 @@ public class TransactieModelTests {
     void transactieDTO_shouldFailValidation_whenAantalIsNull() {
         TransactieCreateDTO dto = new TransactieCreateDTO();
         dto.setAantal(null);          // @NotNull
-        dto.setDatum(LocalDateTime.now());
+        dto.setDatum(LocalDate.now());
 
         Set<ConstraintViolation<TransactieCreateDTO>> violations = validator.validate(dto);
 
@@ -47,7 +47,7 @@ public class TransactieModelTests {
     void transactieDTO_shouldPassValidation_whenAllFieldsSet() {
         TransactieCreateDTO dto = new TransactieCreateDTO();
         dto.setAantal(BigDecimal.TEN);
-        dto.setDatum(LocalDateTime.now());
+        dto.setDatum(LocalDate.now());
 
         Set<ConstraintViolation<TransactieCreateDTO>> violations = validator.validate(dto);
 
@@ -57,7 +57,7 @@ public class TransactieModelTests {
     @Test
     void transactieDTO_shouldMapFromTransactieCorrectly() {
         Transactie transactie = new Transactie(new BigDecimal("100"),"Test transactie",
-                LocalDateTime.of(2026, 3, 19, 12, 0));
+                LocalDate.of(2026, 3, 19));
 
         TransactieDTO dto = new TransactieDTO(transactie);
 
