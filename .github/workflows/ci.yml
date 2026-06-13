@@ -69,7 +69,7 @@ jobs:
           done
 
       - name: Run Gatling tests
-        run: mvn gatling:test -Dgatling.simulationClass=TransactieLoadTests
+        run: mvn gatling:test -Dgatling.simulationClass=org.example.transactie.api.TransactieLoadTests
 
       - name: ZAP API Scan
         uses: zaproxy/action-api-scan@v0.10.0
