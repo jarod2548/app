@@ -42,6 +42,7 @@ public class BudgetOverviewService {
                                                List<Transactie> transacties,
                                                BigDecimal totaalUitgave){
 
+
         Set<UUID> matchedCategories = indelingen.stream()
                 .map(BudgetIndeling::getCategorieID)
                 .collect(Collectors.toSet());

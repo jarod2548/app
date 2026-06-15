@@ -1,4 +1,4 @@
-package org.example.transactie.api;
+package org.example.transactie;
 
 
 import org.app.Account.infrastructure.UserDBO;
@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = org.app.Main.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class TransactieComponentTests {
+public class TransactieIntegrationTests {
 
     private UUID userID;
 

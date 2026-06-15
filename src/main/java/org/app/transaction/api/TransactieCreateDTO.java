@@ -7,6 +7,7 @@ import org.app.transaction.domain.Transactie;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class TransactieCreateDTO {
     private Long id;
@@ -16,6 +17,7 @@ public class TransactieCreateDTO {
     private String beschrijving;
     @NotNull(message = "Datum moet ingevuld zijn")
     private LocalDate datum;
+    private UUID categorieId;
 
     //Voor de creatie van Json bestand door Springboot
     public TransactieCreateDTO(){}
@@ -23,7 +25,7 @@ public class TransactieCreateDTO {
 
     public Transactie naarTransactie()
     {
-        Transactie model = new Transactie(aantal, beschrijving, datum);
+        Transactie model = new Transactie(aantal, beschrijving, datum, categorieId);
         return  model;
     }
 
@@ -44,5 +46,13 @@ public class TransactieCreateDTO {
 
     public void setDatum(LocalDate datum) {
         this.datum = datum;
+    }
+
+    public UUID getCategorieId() {
+        return categorieId;
+    }
+
+    public void setCategorieId(UUID categorieId) {
+        this.categorieId = categorieId;
     }
 }
