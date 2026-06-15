@@ -11,6 +11,7 @@ import org.app.transaction.domain.Transactie;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -57,7 +58,7 @@ public class TransactieModelTests {
     @Test
     void transactieDTO_shouldMapFromTransactieCorrectly() {
         Transactie transactie = new Transactie(new BigDecimal("100"),"Test transactie",
-                LocalDate.of(2026, 3, 19));
+                LocalDate.of(2026, 3, 19), UUID.randomUUID());
 
         TransactieDTO dto = new TransactieDTO(transactie);
 

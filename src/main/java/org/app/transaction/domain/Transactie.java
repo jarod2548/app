@@ -18,10 +18,14 @@ public class Transactie {
     private UUID categorieID;
     private String categorieNaam;
 
-    public Transactie(BigDecimal Aantal, String Beschrijving, LocalDate Datum){
+    public Transactie(BigDecimal Aantal,
+                      String Beschrijving,
+                      LocalDate Datum,
+                      UUID categorieID){
         this.aantal = Aantal;
         this.beschrijving = Beschrijving;
         this.datum = Datum;
+        this.categorieID = categorieID;
     }
 
     public Transactie(TransactieDBO dbo)
